@@ -1,5 +1,5 @@
 
-# 🏨 Hotel Management Platform
+# Vacation Rental Platform
 
 A fully functional Airbnb-inspired web application built using the MERN stack. This project demonstrates RESTful API integration, user authentication, CRUD operations, and responsive UI design.
 
