@@ -10,6 +10,7 @@ const multer  = require('multer');
 const {storage} = require("../cloudinary.js");
 const upload = multer({ storage });
 
+
 router
 .route("/")
 .get( wrapAsync(listingController.index))
@@ -29,3 +30,4 @@ router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.renderE
 
 
 module.exports = router;
+
