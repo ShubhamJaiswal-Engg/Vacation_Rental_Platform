@@ -4,6 +4,7 @@ module.exports.renderSingupForm = (req,res) => {
     res.render("users/signup.ejs");
 };
 
+
 module.exports.singUp = async(req,res) => {
     try{
         let {username, email, password} = req.body;
@@ -41,4 +42,5 @@ module.exports.logout = (req,res,next) => {
         req.flash("success","your are logged out!");
         res.redirect("/listings");
     });
+
 };
