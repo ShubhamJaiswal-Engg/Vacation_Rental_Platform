@@ -1,7 +1,7 @@
 if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
 }
-
+const Listing = require('./model/listing.js');
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const app = express();
@@ -91,10 +91,8 @@ app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
 
 
-app.get("/",async(req,res)=>{
-    const allListing = await Listing.find({});
-    res.render("listings/index.ejs",{allListing});
-});
+
+
 app.all("*",(req,res,next) => {
     next(new ExpressError(404, "page not found!"));
 });
