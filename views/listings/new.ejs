@@ -12,26 +12,28 @@
             type="text" 
             class="form-control" required>
             <div class="valid-feedback">Title like good</div>
+            <div class="invalid-feedback">Title is required </div>
         
         </div>
         
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <textarea name="listing[description]" placeholder="Enter description" class="form-control" required></textarea>
-            <div class="valid-feedback">please enter short discription</div>
+            <div class="invalid-feedback">please enter short discription</div>
+            <div class="valid-feedback">😎😉</div>
         </div>
 
         <div class="mb-3">
             <label for="image" class="form-label">upload Image</label>
-        <input name="listing[image]" type="file" class="form-control" >
+        <input name="listing[image]" type="file" class="form-control" required >
     
         </div>
 
         <div class="row">
             <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Price</label>
-                <input name="listing[price]" placeholder="Enter price" type="number" class="form-control"required >
-                <div class="invalid-feedback">price should be valid</div>
+                <input name="listing[price]" placeholder="Enter price" inputmode="numeric" type="number" min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" required >
+                <div class="invalid-feedback">price should be a valid number</div>
             </div>
 
             <div class="mb-3 col-md-8">
@@ -53,4 +55,3 @@
     </form>
     </div>
 </div>
-
