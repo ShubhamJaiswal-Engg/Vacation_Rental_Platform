@@ -65,7 +65,7 @@ module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
     const updatedData = req.body.listing;
     let listing = await Listing.findByIdAndUpdate(id, updatedData);
-     if(typeof req.file !== undefined){
+     if(typeof req.file !== "undefined"){
     let url = req.file.path;
     let filename = req.file.filename;
     listing.image = {url,filename};
