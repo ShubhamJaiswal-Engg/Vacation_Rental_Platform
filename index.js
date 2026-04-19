@@ -16,6 +16,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./model/user.js");
+const Listing = require('./model/listing.js');
 
 
 const listingsRouter = require("./routes/listing.js");
@@ -23,6 +24,7 @@ const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
  const dbUrl = process.env.ATLASDB_URL;
+ const port = process.env.PORT
 app.engine("ejs", ejsMate);
 
 main().then(() => {
@@ -89,8 +91,10 @@ app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
 
 
-
-
+app.get("/",async(req,res)=>{
+    const allListing = await Listing.find({});
+    res.render("listings/index.ejs",{allListing});
+});
 app.all("*",(req,res,next) => {
     next(new ExpressError(404, "page not found!"));
 });
@@ -100,6 +104,6 @@ app.use((err,req,res,next) => {
     res.status(statusCode).render("listings/error.ejs",{message});
 });
 
-app.listen(8080,() => {
-    console.log("server is listening from port 8080");
+app.listen(port,() => {
+    console.log(`server is listening from port http://localhost:${port}`);
 });
