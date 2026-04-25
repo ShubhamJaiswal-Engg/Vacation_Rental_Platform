@@ -1,8 +1,7 @@
 <% layout("/layouts/boilerplate") %>
-<br><br>
 <div class="row mt-3">
-    <div class="col-8 offset-2">
-    <h2>Edit your listing</h2>
+    <div class="col-12 col-md-10 col-lg-8 mx-auto mt-2">
+    <h2 class="mt-3">Edit your listing</h2>
     
     <form method="POST" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
         <!-- Use _method=PUT to simulate PUT request -->
@@ -17,7 +16,7 @@
 
        <div class="mb-3">
       Original image <br>
-      <img src="<%= originalImageUrl %>" alt="Image">
+            <img src="<%= originalImageUrl %>" alt="Image" class="img-fluid rounded">
         </div>
     
         <div class="mb-3">
@@ -42,7 +41,6 @@
      </div>
         
        <button class="btn btn-dark edit-btn mt-3">Edit</button>
-      <br><br>
     </form>
 </div>
 </div>
