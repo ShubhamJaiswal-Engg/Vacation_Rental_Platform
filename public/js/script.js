@@ -26,7 +26,18 @@
   const suggestionBox = document.getElementById('listing-search-suggestions')
   const form = input?.closest('form') || null
 
+  const CLEAR_ONCE_KEY = 'listingSearchClearOnce'
+
   if (!input || !suggestionBox) return
+
+  try {
+    if (sessionStorage.getItem(CLEAR_ONCE_KEY) === '1') {
+      input.value = ''
+      sessionStorage.removeItem(CLEAR_ONCE_KEY)
+    }
+  } catch {
+    // ignore storage access issues
+  }
 
   let lastController = null
   let debounceTimer = null
@@ -74,6 +85,14 @@
   function submitSearchWithValue(value) {
     input.value = value
     hideSuggestions()
+
+    // After navigating to results, clear the navbar input once.
+    try {
+      sessionStorage.setItem(CLEAR_ONCE_KEY, '1')
+    } catch {
+      // ignore storage access issues
+    }
+
     if (form) {
       if (typeof form.requestSubmit === 'function') form.requestSubmit()
       else form.submit()
