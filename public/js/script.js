@@ -25,7 +25,6 @@
   const input = document.getElementById('listing-search')
   const suggestionBox = document.getElementById('listing-search-suggestions')
   const form = input?.closest('form') || null
-  const listingGrid = document.getElementById('listing-grid')
 
   if (!input || !suggestionBox) return
 
@@ -47,16 +46,11 @@
     setExpanded(true)
   }
 
-  function liveFilterListings(query) {
-    if (!listingGrid) return
-    const normalized = (query || '').trim().toLowerCase()
-    const cards = listingGrid.querySelectorAll('.listing-link')
-    cards.forEach((card) => {
-      const title = (card.dataset.title || '')
-      const matches = !normalized || title.includes(normalized)
-      card.style.display = matches ? '' : 'none'
-    })
-  }
+  // function liveFilterListings(query) {
+    // Intentionally disabled: keep listing cards unchanged while typing.
+    // (Search results are shown only after form submit.)
+  //   void query
+  // }
 
   function createHighlightedTitle(title, query) {
     const text = String(title || '')
@@ -80,7 +74,6 @@
   function submitSearchWithValue(value) {
     input.value = value
     hideSuggestions()
-    liveFilterListings(value)
     if (form) {
       if (typeof form.requestSubmit === 'function') form.requestSubmit()
       else form.submit()
@@ -109,7 +102,7 @@
 
       const line1 = document.createElement('div')
       line1.className = 'fw-semibold'
-      line1.textContent = 'No listings found'
+      line1.textContent = 'No listings found' 
       const line2 = document.createElement('div')
       line2.className = 'text-muted small'
       line2.textContent = `Search for "${q}"`
@@ -163,7 +156,6 @@
 
   input.addEventListener('input', () => {
     const value = input.value
-    liveFilterListings(value)
     clearTimeout(debounceTimer)
     debounceTimer = setTimeout(() => {
       fetchSuggestions(value).catch(() => {
@@ -193,5 +185,5 @@
   })
 
   // Initialize filtering if page loads with query
-  liveFilterListings(input.value)
+  // liveFilterListings(input.value)
 })()
