@@ -20,33 +20,71 @@
     font-size: 0.9rem;
   }
 
+  .staybnb-row{
+    display: none;
+  }
+
+  @media (min-width: 420px) and (max-width: 767.98px) {
+    .staybnb-mid{
+      display: inline-block !important;
+    }
+  }
+
+  @media (max-width: 419.98px) {
+    .staybnb-row{
+      display: flex;
+    }
+
+    .staybnb-row .nav-link{
+      width: 100%;
+      text-align: center;
+    }
+
+    .staybnb-mid{
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .w-md-auto{
+      width: auto !important;
+    }
+
+    .navbar .search-form{
+      flex: 1 1 420px;
+      max-width: 520px;
+    }
+  }
+
 </style>
 <nav class="navbar navbar-expand-md navbar-light bg-body-tertiary border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+    <div class="container-fluid d-flex flex-wrap flex-md-nowrap align-items-center gap-2 justify-content-between justify-content-md-start">
+      <div class="d-flex flex-nowrap align-items-center gap-2 order-1 order-md-1">
+        <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+        <div class="navbar-nav flex-row flex-nowrap align-items-center gap-4">
           <a class="nav-link" href="/listings">Explore</a>
         </div>
+      </div>
 
-        <form class="d-flex flex-column flex-md-row gap-2 mx-md-auto my-2 my-md-0 search-form" role="search">
-          <input class="form-control me-md-2 search-inp" type="search" placeholder="Search destination" >
-          <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-        </form>
-
-        <div class="navbar-nav ms-md-auto">
-          <a class="nav-link" href="/listings/new">Airbnb your home</a>
-          <% if(!currUser) { %>
-            <a class="nav-link"  href="/signup"><b>Signup</b></a>
-            <a class="nav-link" href="/login"><b>login</b></a>
+      <div class="navbar-nav order-2 order-md-3 ms-md-auto flex-row flex-nowrap align-items-center gap-2">
+        <a class="nav-link d-none d-md-inline" href="/listings/new">Staybnb your home</a>
+        <% if(!currUser) { %>
+          <a class="nav-link d-none staybnb-mid" href="/listings/new">Staybnb your home</a>
+          <a class="nav-link"  href="/signup"><b>Signup</b></a>
+          <a class="nav-link" href="/login"><b>login</b></a>
         <%  } %>
         <% if(currUser) { %>
           <a class="nav-link" href="/logout"><b>logout</b></a>
         <% } %>
-        </div>
       </div>
+
+      <div class="navbar-nav w-100 order-3 staybnb-row">
+        <a class="nav-link" href="/listings/new">Staybnb your home</a>
+      </div>
+
+      <form class="d-flex flex-column flex-md-row gap-2 mx-md-auto my-2 my-md-0 search-form order-4 order-md-2 w-100 w-md-auto" role="search">
+        <input class="form-control me-md-2 search-inp" type="search" placeholder="Search destination" >
+        <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+      </form>
     </div>
   </nav>
