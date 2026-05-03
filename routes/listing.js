@@ -16,6 +16,9 @@ router
 .get( wrapAsync(listingController.index))
 .post(isLoggedIn, upload.single("listing[image]"), validateListing,wrapAsync(listingController.createListing));
 
+// suggestions (typeahead) - keep ABOVE '/:id' route
+router.get("/suggest", wrapAsync(listingController.suggest));
+
 
  //new route
  router.get("/new",isLoggedIn,listingController.renderNewForm);
