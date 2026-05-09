@@ -39,6 +39,42 @@
     // ignore storage access issues
   }
 
+  // If the user navigates back/forward (browser history), some browsers restore
+  // form values from the BFCache. Clear the search box in that case.
+  window.addEventListener('pageshow', (event) => {
+    let isHistoryNav = false
+    try {
+      const nav = performance.getEntriesByType?.('navigation')?.[0]
+      isHistoryNav = nav?.type === 'back_forward'
+    } catch {
+      // ignore
+    }
+
+    if (event.persisted || isHistoryNav) {
+      input.value = ''
+      hideSuggestions()
+    }
+  })
+
+  // Some browsers navigate back on Backspace when not typing in an input.
+  // Mark a one-time clear so the search box is empty after returning.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Backspace') return
+    const target = e.target
+    const isTypingField =
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement ||
+      (target instanceof HTMLElement && target.isContentEditable)
+
+    if (isTypingField) return
+
+    try {
+      sessionStorage.setItem(CLEAR_ONCE_KEY, '1')
+    } catch {
+      // ignore
+    }
+  })
+
   let lastController = null
   let debounceTimer = null
 
