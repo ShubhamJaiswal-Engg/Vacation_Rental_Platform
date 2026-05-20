@@ -7,42 +7,41 @@
         <!-- Use _method=PUT to simulate PUT request -->
        <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input name="listing[title]" value="<%= listing.title %>" type="text" required class="form-control">
+        <input id="title" name="listing[title]" value="<%= listing.title %>" type="text" required class="form-control">
        </div>
        <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea name="listing[description]" required class="form-control"><%= listing.description %></textarea>
+        <textarea id="description" name="listing[description]" required class="form-control"><%= listing.description %></textarea>
        </div>
 
        <div class="mb-3">
-      Original image <br>
-            <img src="<%= originalImageUrl %>" alt="Image" class="img-fluid rounded">
+          <div class="fw-bold">Original image</div><br>
+            <img src="<%= originalImageUrl %>" alt="Image" class="img-fluid rounded" style="width: 350px; height: 300px; object-fit: cover;">
         </div>
     
         <div class="mb-3">
-            <label for="image" class="form-label"> upload new Image </label>
-            <input name="listing[image]"  type="file"  class="form-control">
+            <label for="image" class="form-label">Upload new Image</label>
+            <input id="image" name="listing[image]" type="file" class="form-control">
         </div>
         
         <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
-            <input name="listing[price]" value="<%= listing.price %>" type="number" min="0" step="0.01" required class="form-control">
+            <input id="price" name="listing[price]" value="<%= listing.price %>" type="number" min="0" step="0.01" required class="form-control">
         </div>
         <div class="mb-3 col-md-8">   
            <label for="country" class="form-label">Country</label>
-           <input name="listing[country]" value="<%= listing.country %>" type="text" required class="form-control">
+           <input id="country" name="listing[country]" value="<%= listing.country %>" type="text" required class="form-control">
            </div>
     </div>
 
      <div class="mb-3">
          <label for="location" class="form-label">Location</label>
-         <input name="listing[location]" value="<%= listing.location %>" type="text" required class="form-control">
+         <input id="location" name="listing[location]" value="<%= listing.location %>" type="text" required class="form-control">
      </div>
         
-       <button class="btn btn-dark edit-btn mt-3">Edit</button>
+       <button class="btn btn-dark edit-btn mt-4 mb-5">Edit</button>
     </form>
 </div>
 </div>
     
-
