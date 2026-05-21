@@ -14,7 +14,7 @@ module.exports.singUp = async(req,res) => {
             if(err){
                 return next(err);
             }
-            req.flash("success", "welcome to airbnb");
+            req.flash("success", "Welcome to Staybnb!");
             res.redirect("/listings");
       });
     }catch(e){
@@ -28,7 +28,7 @@ module.exports.renderLoginForm = (req,res) => {
 };
 
 module.exports.login = async(req,res) => {
-    req.flash("success","welcome back to airbnb!");
+    req.flash("success","Welcome back to Staybnb!");
     let redirectUrl = res.locals.redirectUrl || "/listings";
     res.redirect(redirectUrl);
 
