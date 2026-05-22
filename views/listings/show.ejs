@@ -14,8 +14,8 @@
                 <p class="card-text">Owned by <span class="ownr"><%= listing.owner ? listing.owner.username : 'Unknown' %></span></p>
                 <p class="card-text"><%= listing.description %></p>
                 <p class="card-text">Price:- &#8377;<span> <%= listing.price.toLocaleString("en-IN") %> </span></p>
-                <p class="card-text"><%= listing.location %> </p>
-                <p class="card-text"><%= listing.country %></p>
+                <p class="card-text">Location:-  <span> <%= listing.location %> </span></p>
+                <p class="card-text">Country:-  <span><%= listing.country %></span></p>
             </div>
         </div>
 
