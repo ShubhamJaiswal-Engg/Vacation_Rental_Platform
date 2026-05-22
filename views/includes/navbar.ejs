@@ -3,7 +3,9 @@
     background-color: #fe424d;
     color: #fff;
     border-radius: 25px;
-    padding: 0 1rem 0 1rem;
+    padding: 0.60rem 0.9rem;
+    line-height: 1.1;
+    white-space: nowrap;
   }
   .search-btn:hover{
     background-color: #fe424d;
@@ -16,8 +18,8 @@
   }
   .search-inp{
     border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3rem;
-    font-size: 0.9rem;
+    padding: 0.50rem 0.9rem;
+    font-size: 1rem;
   }
   .search-suggestions{
     left: 0;
@@ -40,17 +42,51 @@
   }
 
   @media (max-width: 419.98px) {
+    /* Show Staybnb link on a dedicated row for very small screens */
     .staybnb-row{
       display: flex;
+      justify-content: center;
     }
 
     .staybnb-row .nav-link{
+      padding: 0rem 0.5rem;
+      padding-bottom: 0.4rem;
       width: 100%;
       text-align: center;
+      font-size: 0.95rem;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .staybnb-mid{
       display: none !important;
+    }
+
+    .search-inp{
+      font-size: 0.85rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .search-btn{
+      font-size: 0.85rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    /* `gap-2` on the flex container adds row-gap when items wrap; keep it tighter on mobile */
+    .navbar .container-fluid{
+      row-gap: 0.1rem;
+    }
+
+    /* remove extra vertical space around the search row */
+    .navbar .search-form{
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
     }
   }
 
@@ -67,7 +103,7 @@
 
 </style>
 <nav class="navbar navbar-expand-md navbar-light bg-body-tertiary border-bottom sticky-top">
-    <div class="container-fluid d-flex flex-wrap flex-md-nowrap align-items-center gap-2 justify-content-between justify-content-md-start">
+    <div class="container-fluid d-flex flex-wrap flex-md-nowrap align-items-start align-items-md-center gap-1 gap-md-2 justify-content-between justify-content-md-start">
       <div class="d-flex flex-nowrap align-items-center gap-2 order-1 order-md-1">
         <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
         <div class="navbar-nav flex-row flex-nowrap align-items-center gap-4">
@@ -87,12 +123,12 @@
         <% } %>
       </div>
 
-      <div class="navbar-nav w-100 order-3 staybnb-row">
+      <div class="navbar-nav w-100 order-3  staybnb-row">
         <a class="nav-link" href="/listings/new">Staybnb your home</a>
       </div>
 
-      <form class="d-flex flex-column flex-md-row gap-2 mx-md-auto my-2 my-md-0 search-form order-4 order-md-2 w-100 w-md-auto" role="search" action="/listings" method="GET" autocomplete="off">
-        <div class="position-relative grow w-100">
+      <form class="d-flex flex-row flex-md-row gap-2 mx-md-auto my-0 my-md-0 search-form order-4 order-md-2 w-100 w-md-auto align-items-center" role="search" action="/listings" method="GET" autocomplete="off">
+        <div class="position-relative flex-grow-1">
           <input class="form-control me-md-2 search-inp" id="listing-search" type="search" name="q" placeholder="Search destination" value="" aria-label="Search destination" aria-autocomplete="list" aria-controls="listing-search-suggestions" aria-expanded="false">
           <div id="listing-search-suggestions" class="list-group position-absolute search-suggestions d-none" role="listbox"></div>
         </div>
