@@ -36,6 +36,31 @@ body{
 
 
 @media (max-width: 767.98px) {
+    .navbar{
+        /* Let navbar shrink to its content on mobile */
+        min-height: auto;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        /* For Bootstrap 5 navbars that use CSS vars */
+        --bs-navbar-padding-y: 0.25rem;
+    }
+
+    /* When items wrap into multiple lines, prevent flex lines from stretching
+       and creating large gaps between rows */
+    .navbar .container-fluid{
+        align-content: flex-start;
+    }
+
+    .navbar .navbar-brand{
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .navbar .nav-link{
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+    }
+
     .navbar .navbar-collapse{
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
@@ -43,9 +68,9 @@ body{
     .navbar .search-form{
         width: 100%;
     }
-
-    .navbar .search-form .search-inp,
-    .navbar .search-form .search-btn{
+    
+    .navbar .search-form .search-inp {
+        margin: 0;
         width: 100%;
     }
 }
@@ -207,13 +232,13 @@ body{
 .tax-toggle-container {
     display: flex;
     justify-content: center;
-    margin: 20px 0px;
+    margin-top: 12px;
 }
 @media (max-width: 576px) {
     .tax-toggle-sm{
     border: 1px solid #a19a9658;
     border-radius: 1rem;
-    padding: 1rem 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
     width: fit-content;
