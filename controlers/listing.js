@@ -156,8 +156,9 @@ module.exports.updateListing = async (req, res) => {
          req.flash("error", "Invalid listing id");
          return res.redirect("/listings");
      }
-     let deleteListing = await Listing.findByIdAndDelete(id);
-     console.log(deleteListing);
+     await Listing.findByIdAndDelete(id);
+    //  let deleteListing = await Listing.findByIdAndDelete(id);
+    //  console.log(deleteListing);
      req.flash("success", "Listing Delete");
      res.redirect("/listings");
  };
