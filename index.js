@@ -42,6 +42,14 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
+// Prevent browsers from caching dynamic pages (avoids showing deleted listings via back button)
+// app.use((req, res, next) => {
+//     res.set("Cache-Control", "no-store");
+//     res.set("Pragma", "no-cache");
+//     res.set("Expires", "0");
+//     next();
+// });
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
