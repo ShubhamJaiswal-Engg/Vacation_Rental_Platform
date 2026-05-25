@@ -9,7 +9,7 @@
     <div class="col-12 col-md-10 col-lg-8 mx-auto">
         <h3 class="mb-3"><%= listing.title %></h3>
         <div class="card show-card listing-card mb-3">
-            <img src="<%= listing.image.url%>" class="card-img-top show-img" alt="listing_image">
+            <img src="<%= (listing.image && listing.image.url) ? listing.image.url.replace('/upload/', '/upload/f_auto,q_auto/') : '' %>" class="card-img-top show-img" alt="listing_image">
             <div class="card-body">
                 <p class="card-text">Owned by <span class="ownr"><%= listing.owner ? listing.owner.username : 'Unknown' %></span></p>
                 <p class="card-text"><%= listing.description %></p>

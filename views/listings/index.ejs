@@ -81,7 +81,7 @@
         <% for (let listing of allListing) { %>
           <a href="/listings/<%= listing._id%>" class="listing-link" data-title="<%= (listing.title || '').toLowerCase() %>">
             <div class="card col  listing-card">
-              <img src="<%= listing.image.url%>" class="card-img-top" alt="listing_image" style="height: 20rem;" />
+              <img src="<%= (listing.image && listing.image.url) ? listing.image.url.replace('/upload/', '/upload/f_auto,q_auto/') : '' %>" class="card-img-top" alt="listing_image" style="height: 20rem;" />
               <div class="card-img-overlay"></div>
               <div class="card-body">
                 <p class="card-text mt-2">
