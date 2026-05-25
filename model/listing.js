@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
+const { cloudinary } = require("../cloudinary.js");
 const listingSchema = new Schema({
     title:{
         type:String,
@@ -40,6 +41,17 @@ const listingSchema = new Schema({
 listingSchema.post("findOneAndDelete", async(listing) => {
 if(listing){
     await Review.deleteMany({_id: {$in: listing.reviews}});
+
+//    Deleting cloudinary uploaded image when user delete listing
+
+    const filename = listing.image?.filename;
+    if (filename) {
+        try {
+            await cloudinary.uploader.destroy(filename);
+        } catch (err) {
+            console.error("Cloudinary delete failed:", err);
+        }
+    }
 }
 });
 
