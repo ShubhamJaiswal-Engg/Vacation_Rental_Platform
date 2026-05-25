@@ -3,6 +3,7 @@ const Review = require("./model/review.js");
 const ExpressError = require("./untils/ExpressError.js"); 
 const { listingSchema} = require("./schema.js");
 const {reviewSchema} = require("./schema.js");
+const mongoose = require("mongoose");
 
 module.exports.isLoggedIn = (req,res,next) => {
     if(!req.isAuthenticated()){
@@ -23,12 +24,24 @@ module.exports.saveRedirectUrl = (req,res,next) => {
 
 module.exports.isOwner = async (req,res,next) => {
     let { id } = req.params;
-    let listing = await Listing.findById(id);
-    if(!listing.owner.equals(res.locals.currUser._id)){
+    if (!mongoose.isValidObjectId(id)) {
+        req.flash("error", "Invalid listing id");
+        return res.redirect("/listings");
+    }
+
+    const listing = await Listing.findById(id);
+    if (!listing) {
+        req.flash("error", "Listing no longer exists");
+        return res.redirect("/listings");
+    }
+
+    const currentUserId = req.user?._id;
+    if (!currentUserId || !listing.owner.equals(currentUserId)) {
         req.flash("error", "you are not the Owner of listing!");
         return res.redirect(`/listings/${id}`);
     }
-    next();
+
+    return next();
 };
 
 module.exports. validateListing = (req,res,next) => {
@@ -55,11 +68,23 @@ module.exports.validateReview = (req,res,next) => {
 
 module.exports.isReviewAuthor = async (req,res,next) => {
     let { id, reviewId } = req.params;
-    let review = await Review.findById(reviewId);
-    if(!review.author.equals(res.locals.currUser._id)){
+    if (!mongoose.isValidObjectId(reviewId)) {
+        req.flash("error", "Invalid review id");
+        return res.redirect(`/listings/${id}`);
+    }
+
+    const review = await Review.findById(reviewId);
+    if (!review) {
+        req.flash("error", "Review no longer exists");
+        return res.redirect(`/listings/${id}`);
+    }
+
+    const currentUserId = req.user?._id;
+    if (!currentUserId || !review.author.equals(currentUserId)) {
         req.flash("error", "you are not the author on this review!");
         return res.redirect(`/listings/${id}`);
     }
-    next();
+
+    return next();
 
 };
