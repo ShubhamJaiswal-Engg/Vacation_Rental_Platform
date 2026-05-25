@@ -57,7 +57,7 @@ module.exports.showListing = async(req,res) => {
     .populate("owner");
     if(!listing){
        req.flash("error", "Listing you requested for does not exit");
-       res.redirect("/listings");
+       return res.redirect("/listings");
     }
     res.render("listings/show.ejs",{listing,mapToken: process.env.MAP_TOKEN});
 };
@@ -91,7 +91,7 @@ module.exports.renderEditForm = async(req,res) => {
     const listing = await Listing.findById(id);
     if(!listing){
         req.flash("error", "Listing you requested for does not exit");
-        res.redirect("/listings");
+        return res.redirect("/listings");
      }
 
      let originalImageUrl = listing.image.url;
@@ -156,7 +156,11 @@ module.exports.updateListing = async (req, res) => {
          req.flash("error", "Invalid listing id");
          return res.redirect("/listings");
      }
-     await Listing.findByIdAndDelete(id);
+     const deleted = await Listing.findByIdAndDelete(id);
+     if (!deleted) {
+        req.flash("error", "Listing already deleted (or not found)");
+        return res.redirect("/listings");
+     }
     //  let deleteListing = await Listing.findByIdAndDelete(id);
     //  console.log(deleteListing);
      req.flash("success", "Listing Delete");
